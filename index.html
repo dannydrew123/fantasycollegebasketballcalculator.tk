@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="stylesheet.css">
+        <title>Fantasy College Basketball</title>
+    </head>
+    
+    <body>
+        
+        <p><center id="title"><br>Fantasy College Basketball Calculator</center></p>
+        <p><center><br>Points:&nbsp;&nbsp;<div style="display: none;">.</div><input type="text" id="box1"></center></p>
+        <p><center>Rebounds:<input type="text" id="box2"></center></p>
+        <p><center>Assist:&nbsp;&nbsp;<div style="display: none;">.</div><input type="text" id="box3"></center></p>
+        <p><center>Steals:&nbsp;&nbsp;<div style="display: none;">.</div><input type="text" id="box4"></center></p>
+        <p><center>Blocks:&nbsp;&nbsp;<div style="display: none;">.</div><input type="text" id="box5"></center></p>
+        <p><center>3s:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="display: none;">.</div><input type="text" id="box6"></center></p>
+        <p><center><br><button id="button" onclick="calc()" class="button">Submit</button></center></p>
+        <p><center id="score"><br>0</center></p>
+        <p><center><br> 1 Scored Point = .35 Fantasy Point
+
+<br><br>1 Assists = .50 Fantasy Point
+
+<br><br>1 Rebounds = .50 Fantasy Point
+
+<br><br>1 Blocks = .75 Point
+
+<br><br>1 Steal = .75 Point
+
+<br><br>Double Double= 2 Points (Noncummu-3x2)
+
+<br><br>Double Double w/A= 1 Point (cummulative)
+
+<br><br>Triple Double= 6 Points
+
+<br><br>23-30 scored points = 2 points(noncumulative)
+
+<br><br>31-39 scored points = 3 points(noncumulative)
+
+<br><br>40+ scored points = 5 points(noncumulative)
+
+<br><br>4 "3 pointers" = 1 point(noncumulative)
+
+<br><br>7 "3 pointers" = 2 points(noncumulative) 
+
+<br><br>10 "3 pointers" = 4 points(noncumulative)
+
+<br><br>20 pts 20 assists/boards= 6 points
+
+<br><br>17+ assists/boards= 2 points
+
+<br><br>Double Digit in 1 Category= 1.25 Point
+
+<br><br>Win vs AP top 25 opponent = 2 points
+
+
+</center></p>
+        
+        
+        <script>
+            var points = 0;
+            function calc(){
+                var p = parseInt(document.getElementById("box1").value);
+                var r = parseInt(document.getElementById("box2").value);
+                var a = parseInt(document.getElementById("box3").value);
+                var s = parseInt(document.getElementById("box4").value);
+                var b = parseInt(document.getElementById("box5").value);
+                var three = parseInt(document.getElementById("box6").value);
+                if(isNaN(p)){
+                    p=0;
+                }
+                if(isNaN(r)){
+                    r=0;
+                }
+                if(isNaN(a)){
+                    a=0;
+                }
+                if(isNaN(s)){
+                    s=0;
+                }
+                if(isNaN(b)){
+                    b=0;
+                }
+                if(isNaN(three)){
+                    three=0;
+                }
+                
+                points = (p*(0.35))+(r*(0.5))+(a*(0.5))+(s*(0.75))+(b*(0.75));
+                pointr(p);
+                range3(three);
+                dd(p,r,a,s,b);
+                r_a(r,a,p);
+                points=Math.round(100*points)/100;
+                document.getElementById("score").innerHTML = "<br>" + points;
+                
+            }
+            
+            function r_a(r,a,p){
+                if(r>=17||a>=17){
+                    points += 2;
+                }
+                if((r>=20||a>=20)&&(p>=20)){
+                    points+=6;
+                }
+            }
+            function dd(p,r,a,s,b){
+    var ddcount = 0;
+    var dda = 0;
+    if(p>=10){
+        ddcount+=1;
+    }
+    if(r>=10){
+        ddcount+=1;
+    }
+    if(b>=10){
+        ddcount+=1;
+    }
+    if(s>=10){
+        ddcount+=1;
+    }
+    if(a>=10){
+        ddcount+=1;
+        dda = 1;
+    }
+    if(ddcount>=3){
+        points+=6;
+    }
+    else if(ddcount>=2){
+        points += 2;
+    }
+    if(ddcount>=1){
+        points += 1.25;
+    }
+    if(dda==1){
+        points+=1;
+    }
+    
+}
+            function pointr(p2){
+    if(p2>=40){
+        points += 5;
+    }
+    else if(p2>=31){
+        points += 3;
+    }
+    else if(p2>=23){
+        points += 2;
+    }
+}
+            function range3(thr){
+    if(thr>=10){
+        points += 4;
+    }
+    else if(thr>=7){
+        points += 2;
+    }
+    else if(thr>=4){
+        points += 1;
+    }
+}
+
+        
+        </script>
+    </body>
+
+</html>
